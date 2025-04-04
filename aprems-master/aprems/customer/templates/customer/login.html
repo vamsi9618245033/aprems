@@ -1,0 +1,95 @@
+<head>
+    <title>Login</title>
+<style>
+    /* Style the form container */
+    .login-form-container {
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+    }
+
+    /* Style the legend */
+    .login-form-container legend {
+        font-size: 1.5rem;
+        border-bottom: 2px solid #007bff;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+    }
+
+    /* Style the form fields */
+    .login-form-container .form-group {
+        margin-bottom: 20px;
+    }
+
+    .login-form-container label {
+        font-weight: bold;
+    }
+
+    .login-form-container input[type="text"],
+    .login-form-container input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    /* Style the login button */
+    .login-form-container button {
+        background-color: #007bff;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    /* Style the "Sign Up Now" link */
+    .login-form-container .text-muted a {
+        text-decoration: none;
+        color: #007bff;
+        font-weight: bold;
+    }
+
+    /* Flexbox for responsiveness */
+    @media (max-width: 768px) {
+        .login-form-container {
+            max-width: 100%;
+        }
+
+        .login-form-container .form-group {
+            margin-bottom: 15px;
+        }
+    }
+
+    /* Media query for smaller screens */
+    @media (max-width: 576px) {
+        .login-form-container {
+            padding: 10px;
+        }
+    }
+</style>
+
+
+</head>
+{% extends "customer/base.html" %}
+{% block content %}
+    <div class="login-form-container">
+    <form method="POST">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Log In</legend>
+            {{ form.username.label_tag }} {{ form.username }}
+            {{ form.password.label_tag }} {{ form.password }}
+        </fieldset>
+        <div class="form-group">
+            <button class="btn btn-primary" type="submit">Login</button>
+        </div>
+        <div class="text-muted">
+            <small>Need An Account? <a href="{% url 'register' %}" class="btn btn-outline-info">Sign Up Now</a></small>
+        </div>
+    </form>
+</div>
+{% endblock content %}

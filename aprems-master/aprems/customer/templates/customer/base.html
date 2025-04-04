@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Aprems</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'customer/css/styles.css' %}">
+    <style>
+        /* Style for the header and footer */
+        body {
+            background-image: url("{% static 'customer/images/aprems4.jpeg' %}");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center center;
+        }
+        header {
+            background-color: red;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            position: fixed;
+            height: 30;
+            width: 100%;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 999;
+        }
+        footer {
+            background-color: red;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 999;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Apply a margin to push the content above the footer */
+        .content {
+            padding: 20px;
+            margin-top: 100px;
+            margin-bottom: 60px;
+        }
+
+        a {
+            color: Blue;
+            text-decoration: none;
+        }
+        header a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+        #logo {
+    width: 100px; /* Set the width of the logo */
+    height: auto; /* Maintain aspect ratio */
+    vertical-align: middle; /* Align the logo vertically in the middle with anchor tags */
+    margin-right: 10px; /* Add right margin for spacing between the logo and anchor tags */
+    display: inline-block; /* Make the logo an inline-block element */
+}
+
+
+
+    </style>
+</head>
+<body>
+    <center>
+        <header>
+            <!-- Add an image within the header -->
+            <img src="{% static 'customer/images/logo.jpeg' %}" alt="Your Image" id="logo">
+            <a href="{% url 'customer/home' %}">Home</a>&nbsp;&nbsp;&nbsp;
+            <a href="{% url 'product_list' %}">Products</a>&nbsp;&nbsp;&nbsp;
+            <a href="{% url 'add_product' %}">Add Product</a>&nbsp;&nbsp;&nbsp;
+            <a href="{% url 'view_cart' %}">Your Cart</a>&nbsp;&nbsp;&nbsp;
+            <a href="{% url 'feedback_form' %}">Feedback</a>&nbsp;&nbsp;&nbsp;
+            <a href="{% url 'login' %}">Login</a>&nbsp;&nbsp;&nbsp;
+            <a href="{% url 'register' %}">Register</a>&nbsp;&nbsp;&nbsp;
+            <a href="{% url 'logout' %}">Logout</a>&nbsp;&nbsp;&nbsp;
+            <a href="{% url 'user_profile' %}">Profile</a>&nbsp;&nbsp;&nbsp;
+            <a href="{% url 'admin_dashboard' %}">Admin</a>&nbsp;&nbsp;&nbsp;
+        </header>
+        <div class="content">
+            <h1>Agricultural products Rural Entrepreneurship Management System</h1>
+            {% block content %} {% endblock %}
+    </center>
+    <footer>
+        <div id="dynamic-content">
+            &copy; <span id="current-year"></span> 2023 Agricultural Products Rural Entrepreneurship Management System
+        </div>
+    </footer>
+</body>
+</html>

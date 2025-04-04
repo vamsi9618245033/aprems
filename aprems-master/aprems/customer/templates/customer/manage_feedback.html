@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Manage Feedback</title>
+</head>
+<body>
+    <h1>Manage Feedback</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Author</th>
+                <th>Feedback</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entry in feedback %}
+                <tr>
+                    <td>{{ entry.author }}</td>
+                    <td>{{ entry.text }}</td>
+                    <td>
+                        <a href="#">Edit</a> | <a href="#">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

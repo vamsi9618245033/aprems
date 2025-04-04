@@ -1,0 +1,72 @@
+
+<head>
+  <title>Cart</title>
+  <style>
+    /* Add your CSS styles here for better appearance */
+    .product-image {
+      max-width: 100px;
+    }
+    .card {
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin-bottom: 15px;
+      background-color: white; /* Set the background color to white */
+    }
+    .card-body {
+      padding: 15px; /* Add padding to the card body */
+    }
+    .total-container {
+      background-color: white; /* Set the background color to white for the total container */
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 15px;
+      margin-top: 15px;
+    }
+    /* Add styling for the "Remove from Cart" button */
+    .remove-button {
+      background-color: #FF4B2B;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+    .remove-button:hover {
+      background-color: #D13011;
+    }
+  </style>
+
+</head>
+{% extends "customer/base.html" %}
+{% block content %}
+<div class="container">
+  <h2>Your Cart</h2>
+  <div class="row">
+    <form method="post" id="remove-item-form">
+      {% csrf_token %}
+      {% for item in cart_items %}
+      <div class="col-md-4 mb-4">
+        <div class="card">
+          <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="product-image" height="100" width="100">
+          <div class="card-body">
+            <h5 class="card-title">{{ item.product.name }}</h5>
+            <p class="card-text">Price: {{ item.product.price }} RS</p>
+            <p class="card-text">Quantity: {{ item.quantity }}</p>
+            <p class="card-text">Subtotal: {{ item.subtotal }} RS</p>
+            <button type="submit" name="remove_item" value="{{ item.id }}" class="remove-button">Remove from Cart</button>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </form>
+  </div>
+
+  <div class="total-container"> <!-- Create a container for the total section -->
+    <div class="text-right">
+      <p><strong>Total: {{ total }} RS</strong></p>
+      <a href="{% url 'payment' %}" class="btn btn-primary">Proceed to Payment</a>
+    </div>
+  </div>
+</div>
+{% endblock %}
+

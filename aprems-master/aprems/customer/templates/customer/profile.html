@@ -1,0 +1,224 @@
+<head>
+    <title>Profile</title>
+    <style>
+    /* Additional custom CSS styles */
+    .card {
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        margin-top: 20px;
+    }
+    .list-group {
+        margin-top: 20px;
+    }
+    .list-group-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    /* Add these styles for the card layout */
+    .card-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .card {
+      width: 300px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      background-color: #fff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .product-image {
+      max-width: 100%;
+      height: auto;
+      border: 2px solid #007BFF;
+      border-radius: 5px;
+    }
+
+    .card-body {
+      padding: 10px;
+    }
+
+    .card-title {
+      font-size: 1.25em;
+      margin: 10px 0;
+    }
+
+    .card-text {
+      font-size: 1.2em;
+      color: #007BFF;
+    }
+
+    /* Style the "No products available" message */
+    .text-center {
+      font-size: 1.2em;
+      font-weight: bold;
+      color: red;
+    }
+
+    /* Style for the Buy and Add to Cart buttons */
+    .buy-button,
+    .cart-button {
+      display: block;
+      background-color: #007BFF;
+      color: #fff;
+      border: none;
+      padding: 10px;
+      border-radius: 5px;
+      margin-top: 10px;
+      text-align: center;
+      text-decoration: none;
+    }
+
+    .buy-button:hover,
+    .cart-button:hover {
+      background-color: #0056b3;
+    }
+
+    /* Add custom style for the Add to Cart button */
+    .cart-button {
+      background-color: #28a745; /* Change the color for the Add to Cart button */
+    }
+  /* Pagination container style */
+  .pagination {
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  /* Style for page numbers and navigation links */
+  .pagination a {
+    display: inline-block;
+    padding: 5px 10px;
+    margin: 2px;
+    background-color: #007BFF;
+    color: #fff;
+    border: 1px solid #007BFF;
+    border-radius: 5px;
+    text-decoration: none;
+  }
+
+  /* Style for the current page */
+  .pagination .current {
+    background-color: #0056b3;
+  }
+
+  /* Style for the first and last page links */
+  .pagination .first,
+  .pagination .last {
+    background-color: #007BFF;
+  }
+
+  /* Hover style for links */
+  .pagination a:hover {
+    background-color: #0056b3;
+  }
+  .pagination .step-links .available-pages {
+  color: white;
+}
+/* Style for the pagination container */
+.pagination-container {
+  background-color: white;
+  text-align: center;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-top: 20px;
+}
+
+/* Style for page numbers and navigation links within the container */
+.pagination-container a {
+  display: inline-block;
+  padding: 5px 10px;
+  margin: 2px;
+  background-color: #007BFF;
+  color: #fff;
+  border: 1px solid #007BFF;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+/* Style for the current page */
+.pagination-container .current {
+  background-color: #0056b3;
+}
+
+/* Style for the first and last page links */
+.pagination-container .first,
+.pagination-container .last {
+  background-color: #007BFF;
+}
+
+/* Hover style for links */
+.pagination-container a:hover {
+  background-color: #0056b3;
+}
+
+</style>
+</head>
+{% extends 'customer/base.html' %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h1 class="card-title">Username: {{ user.username }}</h1>
+                    <p class="card-text">Email: {{ user.email }}</p>
+                    <p class="card-text">Joined: {{ user.date_joined|date:"F d, Y" }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="mt-4">Products Added by {{ user.username }}</h2>
+</div>
+
+<div class="card-container">
+    {% for product in products %}
+        <div class="card">
+            <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-image">
+        <div class="card-body">
+          <h3 class="card-title">{{ product.name }}</h3>
+          <p class="card-text">Price: {{ product.price }} RS</p>
+          <p class="card-text">Category: {{ product.category }}</p> <!-- Note the field name correction here -->
+          <p class="card-text">Location: {{ product.location }}</p>
+          <p class="card-text">Contact: {{ product.phone }}</p>
+            <a href="{% url 'delete_product' product.id %}" class="btn btn-danger">Delete Product</a>
+        </div>
+        </div>
+    {% empty %}
+        <div class="col-md-12">
+            <div class="alert alert-warning" role="alert">
+                No products added yet.
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+<div class="pagination-container">
+  <span class="step-links">
+    {% if products.has_previous %}
+      <a href="?page=1">First</a>
+      <a href="?page={{ products.previous_page_number }}">Previous</a>
+    {% endif %}
+
+    <!-- Display all available page numbers between next and last buttons -->
+    <span class="step-links">
+      Available Pages:
+      {% for page_number in products.paginator.page_range %}
+        <a href="?page={{ page_number }}">{{ page_number }}</a>
+      {% endfor %}
+    </span>
+
+    {% if products.has_next %}
+      <a href="?page={{ products.next_page_number }}">Next</a>
+      <a href="?page={{ products.paginator.num_pages }}">Last</a>
+    {% endif %}
+  </span>
+</div>
+
+{% endblock %}

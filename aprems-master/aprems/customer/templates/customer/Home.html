@@ -1,0 +1,95 @@
+<head>
+    <title>Home</title>
+    <style>
+        .content-section {
+  background-color: #fff; /* White background */
+  color: #000; /* Black text color */
+  padding: 20px;
+  border-radius: 10px;
+}
+
+/* Apply styles to the contact section */
+.contact-section {
+  background-color: white; /* Blue with 70% transparency */
+  color: black; /* Text color in the contact section */
+  padding: 20px;
+  border-radius: 10px;
+}
+.classification-card {
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin: 10px;
+            padding: 20px;
+            width: 300px;
+            text-align: center;
+            display: inline-block;
+        }
+        .classification-card img {
+            width: 150px; /* Set a fixed width for the images */
+            height: 100px; /* Set a fixed height for the images */
+            object-fit: cover; /* Maintain aspect ratio while covering the image area */
+        }
+        .qr-code {
+    width: 100px; /* Set the desired width */
+    height: 100px; /* Set the desired height */
+    /* Add additional styling as needed for the QR code */
+}
+    </style>
+</head>
+{% extends 'customer/base.html'%}
+{% load static %}
+{% block content %}
+<p>The Agricultural Products Rural Entrepreneurship Management System is a web-based application
+designed to promote rural entrepreneurship in the agricultural sector. It serves as a platform where
+rural entrepreneurs, farmers, and agricultural businesses can showcase and market their agricultural
+products. The system aims to bridge the gap between rural producers and urban consumers, fostering
+    economic growth and sustainable development in rural areas.</p>
+<center>
+        <header>
+            <!-- Add an image within the header -->
+            <img src="{% static 'customer/images/logo.jpeg' %}" alt="Your Image" id="logo">
+            <a href="{% url 'customer/home' %}">Home</a>&nbsp;&nbsp;&nbsp;
+            <a href="{% url 'product_list' %}">Products</a>&nbsp;&nbsp;&nbsp;
+            <a href="{% url 'add_product' %}">Add Product</a>&nbsp;&nbsp;&nbsp;
+            <a href="{% url 'view_cart' %}">Your Cart</a>&nbsp;&nbsp;&nbsp;
+            <a href="{% url 'feedback_form' %}">Feedback</a>&nbsp;&nbsp;&nbsp;
+            <a href="{% url 'register' %}">Register</a>&nbsp;&nbsp;&nbsp;
+            <a href="{% url 'logout' %}">Logout</a>&nbsp;&nbsp;&nbsp;
+            <a href="{% url 'user_profile' %}">Profile</a>&nbsp;&nbsp;&nbsp;
+        </header>
+
+<div class="content">
+            <div class="classification-card">
+                <img src="{% static 'customer/images/Fruits.jpg' %}" alt="Fruits Image">
+                <h2>Fruits</h2>
+                <p>Explore our wide range of fruit products.</p>
+            </div>
+
+            <div class="classification-card">
+                <img src="{% static 'customer/images/Seeds.jpg' %}" alt="Seeds Image">
+                <h2>Seeds</h2>
+                <p>Find high-quality seeds for your crops.</p>
+            </div>
+
+            <div class="classification-card">
+                <img src="{% static 'customer/images/Vegetables.jpg' %}" alt="Vegetables Image">
+                <h2>Vegetables</h2>
+                <p>Discover fresh and organic vegetables.</p>
+            </div>
+
+            <div class="classification-card">
+                <img src="{% static 'customer/images/Paddy.jpg' %}" alt="Paddy Image">
+                <h2>Paddy</h2>
+                <p>Explore a variety of paddy products.</p>
+            </div>
+        </div>
+<div class="contact-section">
+    <h2 class="text-center" style="color: red;">Contact Us</h2>
+    <p class="text-center">For inquiries and support, please contact us:</p>
+    <p class="text-center"><strong>Email:</strong> apremspythonproject@gmail.com</p>
+    <p class="text-center"><strong>Phone:</strong> +91-9390565317</p>
+    <img src="{% static 'customer/images/contact_qr.png' %}" alt="QR Code" class="qr-code">
+  </div>
+{% endblock %}
